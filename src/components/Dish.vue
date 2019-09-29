@@ -14,8 +14,8 @@
       </el-row>
     </el-header>
     <el-main class="body">
-      <div style="display: flex; flex-direction: column ;">
-        <el-card style="flex-basis: 200px;  flex-grow: 1;" shadow="hover">
+      <div class="info">
+        <el-card style="flex-basis: 200px; flex-grow: 1;" shadow="hover">
           <div v-for="o in 4" :key="o" class="text item">
             {{'List item ' + o }}
           </div>
@@ -34,9 +34,9 @@
         </el-card>
       </div>
       <el-card shadow="hover">
-        <div style="height: 400px">
+        <div>
           <el-steps direction="vertical" :active="1">
-            <el-step v-for="(item, i) in steps" :key="i" :title="item.name"></el-step>
+            <el-step style="height: 100px" v-for="(item, i) in steps" :key="i" :title="item.name"></el-step>
           </el-steps>
         </div>
       </el-card>
@@ -138,17 +138,13 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "../mixins/styleMixin";
+
   .dish {
     flex-basis: 600px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     /*min-height: 300px;*/
-  }
-
-  @media only screen and (max-width: 1000px) {
-    .dish-video-player {
-      flex-basis: 100% !important;
-    }
   }
 
   .el-header {
@@ -187,5 +183,25 @@
 
   .body > * {
     margin: 5px;
+  }
+
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+    > * {
+      margin: 5px;
+    }
+  }
+
+  .info-row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .info-column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
 </style>

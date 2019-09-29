@@ -1,0 +1,10 @@
+@mixin flex($width) {
+  display: flex;
+  flex-wrap: wrap;
+
+  @if $width > 500 {
+    flex-direction: row;
+  } @else {
+    flex-direction: column;
+  }
+}
