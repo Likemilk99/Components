@@ -1,8 +1,6 @@
 <template>
-  <div class="root">
-    <template v-for="(item, i) in values" >
-      <my-dish :key="i"></my-dish>
-    </template>
+  <div class="page">
+      Hi
   </div>
 </template>
 
@@ -10,7 +8,7 @@
     export default {
         name: "my-dishes",
         props: {
-            values: {
+            data: {
                 type: Array,
                 default: () => ([])
             }
@@ -22,12 +20,8 @@
 </script>
 
 <style scoped>
-  .root {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  div > .dish {
-    margin: 10px;
+  .page {
+    background: #B3C0D1;
   }
 
 </style>
