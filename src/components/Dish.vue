@@ -1,5 +1,5 @@
 <template>
-  <el-container class="dish">
+  <el-container id="demoSize" ref="test" class="dish">
     <el-header>
       <el-row>
         <div style="float: left">
@@ -14,7 +14,7 @@
       </el-row>
     </el-header>
     <el-main class="body">
-      <div class="info">
+      <div :class="width > 800 ? 'info-row' : 'info-column'">
         <el-card style="flex-basis: 200px; flex-grow: 1;" shadow="hover">
           <div v-for="o in 4" :key="o" class="text item">
             {{'List item ' + o }}
@@ -41,6 +41,8 @@
         </div>
       </el-card>
     </el-main>
+    width: {{width}} <br>
+    windowWidth: {{windowWidth}}
   </el-container>
 </template>
 
@@ -49,6 +51,9 @@
         name: 'my-dish',
         data() {
             return {
+                width: 0,
+                windowWidth: 0,
+                windowHeight: 0,
                 dishСompositions: [
                     {
                         id: 1,
@@ -134,6 +139,25 @@
                     }
                 ]
             }
+        },
+        mounted() {
+            this.$nextTick(function () {
+                window.addEventListener('resize', this.getWindowWidth);
+            })
+        },
+        methods: {
+            getWindowWidth(event) {
+                this.windowWidth = document.documentElement.clientWidth;
+                this.width = this.$refs.test.$el.offsetWidth;
+            },
+
+            getWindowHeight(event) {
+                this.windowHeight = document.documentElement.clientHeight;
+            }
+        },
+        beforeDestroy() {
+            window.removeEventListener('resize', this.getWindowWidth);
+            window.removeEventListener('resize', this.getWindowHeight);
         }
     }
 </script>
@@ -188,6 +212,7 @@
   .info {
     display: flex;
     flex-wrap: wrap;
+
     > * {
       margin: 5px;
     }
