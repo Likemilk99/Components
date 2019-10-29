@@ -1,19 +1,16 @@
 <template>
-  <el-container id="demoSize" ref="test" class="dish">
+  <el-container ref="card" class="dish">
     <el-header>
       <el-row>
         <div style="float: left">
           <el-button>Soup</el-button>
         </div>
-        <!--        <div style="float: center">-->
-        <!--          <el-button>Test</el-button>-->
-        <!--        </div>-->
         <div style="float: right">
           <el-button>Порции</el-button>
         </div>
       </el-row>
     </el-header>
-    <el-main class="body">
+    <el-main class="dish__body">
       <div :class="width > 800 ? 'info-row' : 'info-column'">
         <el-card style="flex-basis: 200px; flex-grow: 1;" shadow="hover">
           <div v-for="o in 4" :key="o" class="text item">
@@ -21,7 +18,7 @@
           </div>
         </el-card>
 
-        <el-container class="dish-video-player">
+        <el-container class="dish__body__video_player">
           <div v-for="o in 4" :key="o" class="text item">
             {{'List item ' + o }}
           </div>
@@ -47,13 +44,13 @@
 </template>
 
 <script>
+    import ResizeMixin from "../mixins/ResizeMixin";
+
     export default {
         name: 'my-dish',
+        mixins: [ResizeMixin],
         data() {
             return {
-                width: 0,
-                windowWidth: 0,
-                windowHeight: 0,
                 dishСompositions: [
                     {
                         id: 1,
@@ -140,82 +137,35 @@
                 ]
             }
         },
-        mounted() {
-            this.$nextTick(function () {
-                window.addEventListener('resize', this.getWindowWidth);
-            })
-        },
-        methods: {
-            getWindowWidth(event) {
-                this.windowWidth = document.documentElement.clientWidth;
-                this.width = this.$refs.test.$el.offsetWidth;
-            },
-
-            getWindowHeight(event) {
-                this.windowHeight = document.documentElement.clientHeight;
-            }
-        },
-        beforeDestroy() {
-            window.removeEventListener('resize', this.getWindowWidth);
-            window.removeEventListener('resize', this.getWindowHeight);
+        created() {
+            this.containerRef = 'card';
         }
     }
 </script>
 
 <style lang="scss" scoped>
-  @import "../mixins/styleMixin";
 
   .dish {
     flex-basis: 600px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    /*min-height: 300px;*/
+
+    &__body {
+      > * {
+        margin: 5px;
+      }
+
+      &__video_player {
+        flex-basis: 300px;
+        flex-grow: 1;
+        border: solid 1px red;
+      }
+    }
   }
 
   .el-header {
     background-color: #B3C0D1;
     color: #333;
     line-height: 60px;
-  }
-
-  .header {
-    margin: 5px;
-    border: solid 1px blue;
-  }
-
-  .dish-body {
-    margin: 5px;
-    border: solid 1px black;
-  }
-
-  .dish-substance-composition {
-
-  }
-
-  .dish-video-player {
-    flex-basis: 300px;
-    flex-grow: 1;
-    border: solid 1px red;
-  }
-
-  .dish-composition {
-
-  }
-
-  .dish-steps {
-
-  }
-
-  .body > * {
-    margin: 5px;
-  }
-
-  .info {
-    display: flex;
-    flex-wrap: wrap;
-
-    > * {
-      margin: 5px;
-    }
   }
 
   .info-row {

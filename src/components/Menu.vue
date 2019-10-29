@@ -8,6 +8,7 @@
                         @click="() => $router.push({name: 'dishes', params: {values: [1,2,3,4,5,6,7,8,9,10]} })">Плитка
           </el-menu-item>
           <el-menu-item index="1-2" @click="() => $router.push('dish')">Элемент плитки</el-menu-item>
+          <el-menu-item index="1-3" @click="() => $router.push('header')">Header</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
